@@ -11,6 +11,16 @@ function App() {
 
   const [timer, settimer] = useState(false);
 
+  const [correct, setCorrect] = useState(0);
+
+  const [wrong, setWrong] = useState(0);
+
+  const [total, setTotal] = useState(0);
+
+  const [accuracy,setaccuracy]=useState(0)
+
+
+
   function genrate() {
     let str = "";
     let char = "asdfjkl;";
@@ -29,21 +39,43 @@ function App() {
   }
 
   function handleinput(e) {
+    setTotal(total + 1);
+    let v = e.target.value;
     setInputstring(e.target.value);
 
     settimer(true);
+    let count = 1;
 
+    for (let i = 0; i < v.length; i++) {
+      if (v[i] === currentstr[i]) {
+        setCorrect(count++);
+      } else {
+        setWrong(wrong + 1);
+      }
+    }
+    
     if (e.target.value === currentstr) {
       setTimeout(() => {
         setInputstring("");
         let random = genrate();
         setCurrentstr(random);
+
+        let WPM = total / 5 /  60;
+        let NWPM = (total - wrong) / 5 /  60
+  
+    let a = Math.floor((NWPM * 100) / WPM);
+    setaccuracy(a)
       }, 1500);
     }
+   
   }
 
-  let next = currentstr[0];
+  
+  console.log(accuracy)
 
+  
+
+  let next = currentstr[0];
   for (let i = 0; i < currentstr.length; i++) {
     if (currentstr[i] === inputstring[i]) {
       next = currentstr[i + 1];
@@ -82,7 +114,7 @@ function App() {
     <div className="main">
       <Navbars />
       <Counter timer={timer} />
-      <Container style={{ width: "100%",marginBottom:"10px" }}>
+      <Container style={{ width: "100%", marginBottom: "10px" }}>
         <img
           style={{ display: "block", margin: "auto" }}
           src="https://media.giphy.com/media/RbDKaczqWovIugyJmW/giphy.gif"
@@ -90,23 +122,21 @@ function App() {
           alt=""
         />
       </Container>
-      
 
       <Container
         style={{
           width: "50%",
           height: "45px",
-          marginBottom:"10px",
+          marginBottom: "10px",
           borderRadius: "0",
           backgroundColor: "#375A7F",
-         
         }}
       >
-        <h2 style={{ color: "white", textAlign: "center",  }}>{currentstr}</h2>
+        <h2 style={{ color: "white", textAlign: "center" }}>{currentstr}</h2>
       </Container>
-      
+
       <Container
-        style={{ display: "flex", width: "15%", marginBottom:"10px" }}
+        style={{ display: "flex", width: "15%", marginBottom: "10px" }}
       >
         <h4> Press:- </h4>
 
@@ -136,7 +166,7 @@ function App() {
             fontSize: "24px",
             fontWeight: "600",
             textAlign: "center",
-            marginBottom:"20px"
+            marginBottom: "20px",
           }}
           size="lg"
           type="text"
@@ -145,10 +175,16 @@ function App() {
           value={inputstring}
         />
       </div>
-      <Container style={{ display:"flex",justifyContent:"space-evenly",justifyItems:"center"}}>
-      <h4 >Press:- </h4>
-      <h4> Press:- </h4>
-      <h4> Press:- </h4>
+      <Container
+        style={{
+          display: "flex",
+          justifyContent: "space-evenly",
+          justifyItems: "center",
+        }}
+      >
+        <h4> Total:-{total} </h4>
+        <h4> Accuracy:-{accuracy}% </h4>
+        <h4> WPM:-{correct} </h4>
       </Container>
     </div>
   );
