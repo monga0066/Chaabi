@@ -125,7 +125,7 @@ function App() {
 
       <Container
         style={{
-          width: "50%",
+          width:"95%",
           height: "45px",
           marginBottom: "10px",
           borderRadius: "0",
@@ -136,9 +136,12 @@ function App() {
       </Container>
 
       <Container
-        style={{ display: "flex", width: "15%", marginBottom: "10px" }}
+        style={{ display:"flex", width: "100%", marginBottom: "10px" }}
       >
-        <h4> Press:- </h4>
+        <div   style={{ display:"flex", width: "auto",margin:"auto", marginBottom: "10px" }}>
+
+       
+        <h4 style={{margin:"auto"}} > Press:- </h4>
 
         <Button
           style={{
@@ -146,19 +149,20 @@ function App() {
             border: "1px solid #F021B2",
             fontWeight: "500",
             fontSize: "20px",
-            marginLeft: "10px",
+            marginRight:"0px",
             padding: "0 10px 0 10px",
             borderRadius: "0",
           }}
         >
           {next === " " ? "SPACE" : next}
         </Button>
+        </div>
       </Container>
 
-      <div>
+      <Container >
         <Form.Control
           style={{
-            width: "50%",
+            width:"100%",
             margin: "auto",
             borderRadius: "0",
             backgroundColor: inputColor(),
@@ -174,7 +178,7 @@ function App() {
           onChange={handleinput}
           value={inputstring}
         />
-      </div>
+      </Container>
       <Container
         style={{
           display: "flex",
